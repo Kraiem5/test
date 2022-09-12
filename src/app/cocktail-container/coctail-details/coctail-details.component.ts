@@ -16,5 +16,8 @@ export class CoctailDetailsComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+   add(){
+    console.log(this.cocktail)
+    this.panierservice.addToPanier(this.cocktail.ingredients)
+   }
 }

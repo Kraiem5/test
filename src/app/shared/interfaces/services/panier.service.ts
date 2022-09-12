@@ -7,13 +7,13 @@ import { Ingredient } from '../ingredient.interface';
 })
 export class PanierService {
 
-  public ingredients$ : BehaviorSubject<Ingredient[]> = new BehaviorSubject(null);
+  public ingredients$ : BehaviorSubject<Ingredient[]> = new BehaviorSubject<Ingredient[]>([]);
 
   constructor() { }
   public addToPanier(ingredients: Ingredient[]): void {
     const currentValue = this.ingredients$.value;
     if (currentValue) {
-      const obj = [...currentValue , ...ingredients].reduce((acc, value) => {
+      const obj = [...currentValue , ...ingredients].reduce((acc:any, value) => {
         if (acc[value.name]) {
           acc[value.name] += value.quantity;
         } else {
@@ -22,7 +22,7 @@ export class PanierService {
         return acc
       }, {});
       const result = Object.keys(obj).map((key) => ({
-        name: [key],
+        name: key,
         quantity: obj[key],
       }));
       this.ingredients$.next(result);
